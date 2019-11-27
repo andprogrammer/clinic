@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.clinic.DatabaseService;
+
 import java.sql.*;
 
 @WebServlet("/registrationServlet")
@@ -44,36 +47,27 @@ public class RegistrationServlet extends HttpServlet {
 			request.setAttribute("action", "niepoprawne hasla");
 			getServletContext().getRequestDispatcher("/index.jsp?subpage=6").forward(request, response);
 		} else {
-
-			try
-		    {
-		      // create a mysql database connection
-		      String myDriver = "com.mysql.jdbc.Driver";
-		      String myUrl = "jdbc:mysql://localhost/clinic?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-		      Class.forName(myDriver);
-		      Connection conn = DriverManager.getConnection(myUrl, "root", "#Krakow2019");
-		      
-		      // the mysql insert statement
-		      String query = " insert into user (first_name, last_name, pesel, email, password)" + " values (?, ?, ?, ?, ?)";
-
-		      // create the mysql insert preparedstatement
-		      PreparedStatement preparedStmt = conn.prepareStatement(query);
-		      preparedStmt.setString (1, first_name);
-		      preparedStmt.setString (2, last_name);
-		      preparedStmt.setString(3, pesel);
-		      preparedStmt.setString(4, password1);
-		      preparedStmt.setString(5, password2);
-
-		      // execute the preparedstatement
-		      preparedStmt.execute();
-		      
-		      conn.close();
-		    }
-		    catch (Exception e)
-		    {
-		      System.err.println("Got an exception!");
-		      System.err.println(e.getMessage());
-		    }
+			if(!DatabaseService.isDatabaseConnected())
+				DatabaseService.connectToDataBase();
+			if(DatabaseService.isDatabaseConnected()) {
+				
+				PreparedStatement preparedStmt;
+				try {
+					String query = " insert into user (first_name, last_name, pesel, email, password)" + " values (?, ?, ?, ?, ?)";
+					
+					preparedStmt = DatabaseService.connectionDataBase().prepareStatement(query);
+					preparedStmt.setString (1, first_name);
+					preparedStmt.setString (2, last_name);
+					preparedStmt.setString(3, pesel);
+					preparedStmt.setString(4, password1);
+					preparedStmt.setString(5, password2);
+					
+					preparedStmt.execute();
+					preparedStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 			request.setAttribute("action", "success");
 			getServletContext().getRequestDispatcher("/index.jsp?subpage=6").forward(request, response);
 		}
