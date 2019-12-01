@@ -59,7 +59,7 @@ public class RegistrationServlet extends HttpServlet {
 					preparedStmt.setString (1, first_name);
 					preparedStmt.setString (2, last_name);
 					preparedStmt.setString(3, pesel);
-					preparedStmt.setString(4, password1);
+					preparedStmt.setString(4, email);
 					preparedStmt.setString(5, password2);
 					
 					preparedStmt.execute();

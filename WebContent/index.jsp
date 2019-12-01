@@ -9,6 +9,8 @@
 	<title>Przychodnia</title>
 </head>
 
+<%@ page import="com.clinic.DatabaseService" %>
+
 <body>
 <div id="container">
 <div id="header">
@@ -17,8 +19,19 @@
   <p><font color="WHITE">Zainwestuj w zdrowie</font></p>
   
   <ul id="menu">
+  <% if(session.getAttribute("logged")!=null)
+	  if(session.getAttribute("logged").equals("online")) {
+	 	if(session.getAttribute("account_type").equals("user")) { %>
+			<li id="tab_02"><a href="index.jsp?subpage=2">Wizyty</a></li>
+		    <li id="tab_02"><a href="index.jsp?subpage=8">Oplaty</a></li>
+		    <li id="tab_03"><a href="index.jsp?subpage=9">Kokpit</a></li>
+  <% 	} else if(session.getAttribute("account_type").equals("admin")) { %>
+		    <li id="tab_01"><a href="index.jsp?subpage=10">Uzytkownicy</a></li>
+		    <li id="tab_02"><a href="index.jsp?subpage=11">Edycja wizyt</a></li>
+		    <li id="tab_03"><a href="index.jsp?subpage=9">Kokpit</a></li>
+  <%	}
+	} %>
     <li id="tab_01"><a href="index.jsp?subpage=1">Start</a></li>
-    <li id="tab_02"><a href="index.jsp?subpage=2">Wizyty</a></li>
 	<li id="tab_03"><a href="index.jsp?subpage=3">Placówki</a></li>
   </ul>
   
@@ -42,6 +55,11 @@
 			<jsp:include page="registration.jsp" />
 			<%
 		break;
+		case 9:	//admin and user
+			%>
+			<jsp:include page="cockpit.jsp" />
+			<%
+		break;
 		default:
 			%>
 			<jsp:include page="start.jsp" />
@@ -58,6 +76,7 @@
   <div id="side_panel">
     <div id="search_box">
 		<div id="search_content">
+		<% if(session.getAttribute("logged")==null || session.getAttribute("logged").equals("offline")) { %>
 			<form action="logInServlet" method="post">
 				<br>
 				email: <input type="text" name="email"/>
@@ -65,6 +84,38 @@
 				<input type="submit" value="Zaloguj"/><a href="index.jsp?subpage=6">Zarejetruj sie</a>
 				</br>
 			</form>
+		<% } else if(session.getAttribute("logged").equals("online")) { %>
+			<form action="logOutServlet" method="post">
+				<br>Zalogowany jako: 
+				<% if(session.getAttribute("account_type").equals("customer")) { %>
+					<font color='blue'><% out.println(""+(String) session.getAttribute("email")); %></font></br>
+				<% } else if(session.getAttribute("account_type").equals("admin")) { %>
+					<font color='red'><% out.println(""+(String) session.getAttribute("email")); %></font></br>
+				<% } %>
+				<br><input type="submit" value="Wyloguj"/>
+				</br>
+				<%
+				int count=0;
+				
+				//TODO look at crouses project
+				%>
+				<img src="images/bin.png" alt="Can`t open" width="20%" height="20%"/>
+				<%=count %>
+			</form>
+		<% } else if(session.getAttribute("logged").equals("ErrorEmailPass")) {
+			session.setAttribute("logged", "offline");
+			session.setAttribute("account_type", "offline");
+			session.setAttribute("email", "offline");
+		%>
+			<form action="logInServlet" method="post">
+				<br>Zle haslo lub email:-(</br>
+				<br>
+				email: <input type="text" name="email"/>
+				haslo: <input type="password" name="pass"/>
+				<input type="submit" value="Zaloguj"/><a href="index.jsp?subpage=6">Zarejetruj sie</a>
+				</br>
+			</form>
+		<% } %>
 		</div>
 	</div>
 
