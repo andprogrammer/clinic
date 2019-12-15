@@ -99,7 +99,7 @@
 						</form>
 						<% } else if(session.getAttribute("logged").equals("online")) { %>
 						<form action="logOutServlet" method="post">
-							<br>Zalogowany jako: <% if(session.getAttribute("account_type").equals("customer")) { %>
+							<br>Zalogowany jako: <% if(session.getAttribute("account_type").equals("user")) { %>
 								<font color='blue'>
 									<% out.println(""+(String) session.getAttribute("email")); %>
 							</font></br>
