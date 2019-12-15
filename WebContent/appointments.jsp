@@ -21,7 +21,7 @@ if(DatabaseService.isDatabaseConnected()) {
 		Zarejestrowane:
 	</tr>
 	<tr>
-		<th>Nazwa</th>
+		<th>Usluga</th>
 		<th>Data</th>
 	</tr>
 
@@ -56,7 +56,7 @@ if(DatabaseService.isDatabaseConnected()) {
 	</tr>
 	
 	<tr>
-		<td>Lekarz:</td>
+		<td>Usluga:</td>
 		<td>Dzien:</td>
 		<td>Miesiac:</td>
 		<td>Godzina:</td>
