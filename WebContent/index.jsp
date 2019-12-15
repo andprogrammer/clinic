@@ -109,14 +109,6 @@
 							</font></br>
 							<% } %>
 							<br><input type="submit" value="Wyloguj" /> </br>
-							<%
-				int count=0;
-				
-				//TODO look at crouses project
-				%>
-							<img src="images/bin.png" alt="Can`t open" width="20%"
-								height="20%" />
-							<%=count %>
 						</form>
 						<% } else if(session.getAttribute("logged").equals("ErrorEmailPass")) {
 			session.setAttribute("logged", "offline");
@@ -137,10 +129,10 @@
 					<div id="archives_content">
 						<h4>Terminarz</h4>
 						<ul>
-							<li><a href="#">Marzec 2013</a></li>
-							<li><a href="#">Kwiecien 2013</a></li>
-							<li><a href="#">Maj 2013</a></li>
-							<li><a href="#">Czerwiec 2013</a></li>
+							<li><a href="#">Marzec 2020</a></li>
+							<li><a href="#">Kwiecien 2020</a></li>
+							<li><a href="#">Maj 2020</a></li>
+							<li><a href="#">Czerwiec 2020</a></li>
 						</ul>
 					</div>
 					<span id="archives_footer"></span>
