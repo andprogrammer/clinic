@@ -46,6 +46,7 @@ public class LogInServlet extends HttpServlet {
 						session.setAttribute("logged", "online");
 						session.setAttribute("account_type", account_type);
 						session.setAttribute("email", email);
+						session.setAttribute("user_id", res.getInt("id"));
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();

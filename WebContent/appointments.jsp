@@ -13,7 +13,7 @@
 if(!DatabaseService.isDatabaseConnected())
 	DatabaseService.connectToDataBase();
 if(DatabaseService.isDatabaseConnected()) {
-    String query = "SELECT name, date FROM appointment WHERE user_id=1";	// TODO user_id hardcoded temporary-only for test purposes 
+    String query = "SELECT service.name, service.doctor, service.date FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id");
 
 %>
 <table style="width: 100%">
@@ -22,6 +22,7 @@ if(DatabaseService.isDatabaseConnected()) {
 	</tr>
 	<tr>
 		<th>Usluga</th>
+		<th>Lekarz</th>
 		<th>Data</th>
 	</tr>
 
@@ -32,6 +33,7 @@ if(DatabaseService.isDatabaseConnected()) {
 %>
 	<tr>
 		<td><center><%=rs.getString("name") %></center></td>
+		<td><center><%=rs.getString("doctor") %></center></td>
 		<td><center><%=rs.getString("date") %></center></td>
 	</tr>
 <%
@@ -46,65 +48,5 @@ if(DatabaseService.isDatabaseConnected()) {
 
 </table>
 
-<table>
-	<tr>
-		<td>Zapisz sie:</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	
-	<tr>
-		<td>Usluga:</td>
-		<td>Dzien:</td>
-		<td>Miesiac:</td>
-		<td>Godzina:</td>
-	</tr>
-	
-	<tr>
-		<td>
-			<select>
-				<option value="">Stomatolog</option>
-				<option value="">Endokrynolog</option>
-				<option value="">Ginekolog</option>
-				<option value="">Pediatra</option>
-			</select>
-		</td>		
-			<td>
-				<select>
-				<%for(int i=1;i<32;++i) {%>
-					<option value=""><%=i%></option>
-				<%}%>
-				</select>
-			</td>
-		<td>
-			<select>
-				<option value="">Styczen</option>
-				<option value="">Luty</option>
-				<option value="">Marzec</option>
-				<option value="">Kwiecien</option>
-				<option value="">Maj</option>
-				<option value="">Czerwiec</option>
-				<option value="">Lipiec</option>
-				<option value="">Sierpien</option>
-				<option value="">Wrzesien</option>
-				<option value="">Pazdziernik</option>
-				<option value="">Listopad</option>
-				<option value="">Grudzien</option>
-			</select>
-		</td>
-		
-		<td>
-			<select>
-				<option value="">9-10</option>
-				<option value="">10-11</option>
-				<option value="">11-12</option>
-				<option value="">12-13</option>
-				<option value="">13-14</option>
-				<option value="">14-15</option>
-				<option value="">15-16</option>
-			</select>
-		</td>
-	</tr>
-</table>
+<br><br>
+<button onclick="location.href = 'http://localhost:12456/Clinic/index.jsp?subpage=4';" id="reservation" class="float-left submit-button" >Chce umowic wizyte lub badanie</button>

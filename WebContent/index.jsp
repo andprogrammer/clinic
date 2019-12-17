@@ -64,6 +64,11 @@
 				<jsp:include page="institutions.jsp" />
 				<%
 		break;
+		case 4:
+			%>
+				<jsp:include page="reservation.jsp" />
+				<%
+		break;
 		case 6:
 			%>
 				<jsp:include page="registration.jsp" />
@@ -101,7 +106,8 @@
 						<form action="logOutServlet" method="post">
 							<br>Zalogowany jako: <% if(session.getAttribute("account_type").equals("user")) { %>
 								<font color='blue'>
-									<% out.println(""+(String) session.getAttribute("email")); %>
+									<% out.println(""+(String) session.getAttribute("email"));
+									%>
 							</font></br>
 							<% } else if(session.getAttribute("account_type").equals("admin")) { %>
 							<font color='red'>
