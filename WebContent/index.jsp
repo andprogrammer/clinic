@@ -74,6 +74,11 @@
 				<jsp:include page="registration.jsp" />
 				<%
 		break;
+		case 8:
+			%>
+				<jsp:include page="fees.jsp" />
+				<%
+		break;
 		case 9:	//admin and user
 			%>
 				<jsp:include page="cockpit.jsp" />

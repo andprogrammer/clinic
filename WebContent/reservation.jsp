@@ -20,7 +20,7 @@
 			
 			<tr>
 				<td>Usluga:</td>
-				<td>Termin:</td>
+				<td>Zakres terminów:</td>
 			</tr>
 			
 			<tr>
