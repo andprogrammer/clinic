@@ -63,7 +63,7 @@ if(!DatabaseService.isDatabaseConnected())
 	DatabaseService.connectToDataBase();
 if(DatabaseService.isDatabaseConnected()) {
 	
-    String query = "SELECT id, name, doctor, date FROM clinic.service";
+    String query = "SELECT id, name, doctor, date FROM clinic.service WHERE date >= CURDATE()";
 
     try {
         ResultSet rs = DatabaseService.statementDataBase().executeQuery(query);
