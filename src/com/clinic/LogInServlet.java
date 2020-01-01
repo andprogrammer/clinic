@@ -40,12 +40,14 @@ public class LogInServlet extends HttpServlet {
 					res.next();
 		    	    
 					email=res.getString("email");
+					String first_name=res.getString("first_name");
 					
 					if(!email.equals("")) {
 						String account_type=res.getString("type");
 						session.setAttribute("logged", "online");
 						session.setAttribute("account_type", account_type);
 						session.setAttribute("email", email);
+						session.setAttribute("first_name", first_name);
 						session.setAttribute("user_id", res.getInt("id"));
 					}
 				} catch (SQLException e) {
