@@ -102,6 +102,9 @@ Blad :
 		<center>
 			<input type="submit" value="Zapisz" />
 		</center>
+		
+		<br><br>
+		<b>Potwierdzam, ze zapoznalem/am sie z Polityka prywatnosci oraz Regulaminem</b>
 	</fieldset>
 </form>
 <% } %>

@@ -28,6 +28,7 @@
 	 	if(session.getAttribute("account_type").equals("user")) { %>
 				<li id="tab_02"><a href="index.jsp?subpage=2">Wizyty</a></li>
 				<li id="tab_02"><a href="index.jsp?subpage=8">Oplaty</a></li>
+				<li id="tab_02"><a href="index.jsp?subpage=7">Lekarze</a></li>
 				<li id="tab_03"><a href="index.jsp?subpage=9">Kokpit</a></li>
 				<% 	} else if(session.getAttribute("account_type").equals("admin")) { %>
 				<li id="tab_01"><a href="index.jsp?subpage=10">Uzytkownicy</a></li>
@@ -72,6 +73,11 @@
 		case 6:
 			%>
 				<jsp:include page="registration.jsp" />
+				<%
+		break;
+		case 7:
+			%>
+				<jsp:include page="doctors.jsp" />
 				<%
 		break;
 		case 8:
