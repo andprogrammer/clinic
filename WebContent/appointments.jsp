@@ -1,3 +1,5 @@
+<style> td { border: 1px solid black; } </style>
+
 <h2>Wizyty</h2>
 
 
@@ -13,7 +15,7 @@
 if(!DatabaseService.isDatabaseConnected())
 	DatabaseService.connectToDataBase();
 if(DatabaseService.isDatabaseConnected()) {
-    String query = "SELECT service.name, service.doctor, service.date FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id");
+    String query = "SELECT service.name, service.doctor, service.date, service.price FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id");
 
 %>
 <table style="width: 100%">
@@ -24,6 +26,7 @@ if(DatabaseService.isDatabaseConnected()) {
 		<th>Usluga</th>
 		<th>Lekarz</th>
 		<th>Data</th>
+		<th>Cena</th>
 	</tr>
 
 <%
@@ -35,6 +38,7 @@ if(DatabaseService.isDatabaseConnected()) {
 		<td><center><%=rs.getString("name") %></center></td>
 		<td><center><%=rs.getString("doctor") %></center></td>
 		<td><center><%=rs.getString("date") %></center></td>
+		<td><center><%=rs.getString("price") %></center></td>
 	</tr>
 <%
         }

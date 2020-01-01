@@ -29,3 +29,6 @@
       <td>Stomatolog</td> <td>110zl / 1h</td>
    </tr>
 </table>
+
+<br><br>
+<b>Oplata za kazda wizyte zostanie pobrana po jej zakonczeniu</b>
