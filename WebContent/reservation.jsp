@@ -26,17 +26,17 @@
 			<tr>
 				<td>
 					<select name="service">
-						<option value="stomatolog">Stomatolog</option>
-						<option value="endokrynolog">Endokrynolog</option>
-						<option value="ginekolog">Ginekolog</option>
-						<option value="pediatra">Pediatra</option>
+						<option value="endokrynolog">endokrynolog</option>
+						<option value="laryngolog">laryngolog</option>
+						<option value="okulista">okulista</option>
+						<option value="ortopeda">ortopeda</option>
 					</select>
 				</td>
 				<td>
 					<select name="date">
-						<option value="1">3 dni</option>
-						<option value="2">14 dni</option>
-						<option value="3">30 dni</option>
+						<option value="3">3 dni</option>
+						<option value="14">14 dni</option>
+						<option value="30">30 dni</option>
 					</select>
 				</td>
 			</tr>
@@ -56,14 +56,27 @@ if(service_request != null) {
 		<th>Usluga</th>
 		<th>Lekarz</th>
 		<th>Termin</th>
-		<th></th>
+		<th>Rezerwuj</th>
 	</tr>
 <%
 if(!DatabaseService.isDatabaseConnected())
 	DatabaseService.connectToDataBase();
 if(DatabaseService.isDatabaseConnected()) {
 	
-    String query = "SELECT id, name, doctor, date FROM clinic.service WHERE date >= CURDATE()";
+	String query_date_offset = "SELECT DATE_ADD(CURDATE(), INTERVAL " + request.getParameter("date") + " DAY) AS date_offset";
+	String result_query_offset = null;
+    try {
+        ResultSet rs = DatabaseService.statementDataBase().executeQuery(query_date_offset);
+        while (rs.next()) {
+        	result_query_offset=rs.getString("date_offset");
+        }
+    } catch (SQLException e ) {
+    	e.printStackTrace();
+    } finally {
+        //if (stmt != null) { stmt.close(); }
+    }
+	
+    String query = "SELECT id, name, doctor, date FROM clinic.service WHERE date >= CURDATE() AND date <= '" + result_query_offset + "' AND name='" + request.getParameter("service") + "'";
 
     try {
         ResultSet rs = DatabaseService.statementDataBase().executeQuery(query);
