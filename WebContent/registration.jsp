@@ -11,7 +11,7 @@ Blad :
 <%=action %></br>
 <%	}
 	} else { %>
-<u>Rejestracja:</u>
+<h2>Rejestracja</h2>
 <form action="registrationServlet" method="post">
 	<fieldset>
 		<br />
@@ -54,9 +54,14 @@ Blad :
 					style="width: 220px" name="password2" value="" /></td>
 			</tr>
 		</table>
+		<br>
 		<center>
 			<input type="submit" value="Zarejetruj" />
 		</center>
+
+		<br><br>
+		<b>Potwierdzam, ze zapoznalem/am sie z Polityka prywatnosci oraz Regulaminem</b>
 	</fieldset>
 </form>
+
 <% } %>
