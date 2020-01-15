@@ -56,6 +56,7 @@ if(service_request != null) {
 		<th>Usluga</th>
 		<th>Lekarz</th>
 		<th>Termin</th>
+		<th>Cena</th>
 		<th>Rezerwuj</th>
 	</tr>
 <%
@@ -76,7 +77,7 @@ if(DatabaseService.isDatabaseConnected()) {
         //if (stmt != null) { stmt.close(); }
     }
 	
-    String query = "SELECT id, name, doctor, date FROM clinic.service WHERE date >= CURDATE() AND date <= '" + result_query_offset + "' AND name='" + request.getParameter("service") + "'";
+    String query = "SELECT id, name, doctor, date, price FROM clinic.service WHERE date >= CURDATE() AND date <= '" + result_query_offset + "' AND name='" + request.getParameter("service") + "'";
 
     try {
         ResultSet rs = DatabaseService.statementDataBase().executeQuery(query);
@@ -86,8 +87,9 @@ if(DatabaseService.isDatabaseConnected()) {
 				<form action="ReserveServiceServlet" method="post">
 					<input type="hidden" name="service_id" value="<%=rs.getString("id")%>">
 					<td><%=rs.getString("name") %></td>
-					<td><%=rs.getString("date") %></td>
 					<td><%=rs.getString("doctor") %></td>
+					<td><%=rs.getString("date") %></td>
+					<td><%=rs.getString("price") %></td>
 					<td><input type="submit" value="Rezerwuj" /></td>
 				</form>
 			</tr>
