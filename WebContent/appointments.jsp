@@ -28,13 +28,13 @@ if(DatabaseService.isDatabaseConnected()) {
 			e.printStackTrace();
 		}	
 	}
-	
-    String query = "SELECT appointment.id, service.name, service.doctor, service.date, service.price FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id");
+
+    String query = "SELECT appointment.id, service.name, service.doctor, service.date, service.price FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id") + " AND service.date >= CURDATE()";
 
 %>
 <table style="width: 100%">
 	<tr>
-		Zarejestrowane:
+		Zarejestrowane wizyty:
 	</tr>
 	<tr>
 		<th>Usluga</th>
@@ -63,10 +63,48 @@ if(DatabaseService.isDatabaseConnected()) {
     } finally {
         //if (stmt != null) { stmt.close(); }
     }
-}
 %>
 
 </table>
 
 <br><br>
 <button onclick="location.href = 'http://localhost:12456/Clinic/index.jsp?subpage=4';" id="reservation" class="float-left submit-button" >Chce umowic wizyte lub badanie</button>
+
+<br><br><br>
+<%
+	query = "SELECT appointment.id, service.name, service.doctor, service.date, service.price FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id") + " AND service.date < CURDATE()";
+%>
+
+<table style="width: 100%">
+	<tr>
+		Zrealizowane wizyty:
+	</tr>
+	<tr>
+		<th>Usluga</th>
+		<th>Lekarz</th>
+		<th>Data</th>
+		<th>Cena</th>
+	</tr>
+
+<%
+    try {
+        ResultSet rs = DatabaseService.statementDataBase().executeQuery(query);
+        while (rs.next()) {
+%>
+	<tr>
+		<td><center><%=rs.getString("name") %></center></td>
+		<td><center><%=rs.getString("doctor") %></center></td>
+		<td><center><%=rs.getString("date") %></center></td>
+		<td><center><%=rs.getString("price") %></center></td>
+	</tr>
+<%
+        }
+    } catch (SQLException e ) {
+    	e.printStackTrace();
+    } finally {
+        //if (stmt != null) { stmt.close(); }
+    }
+}
+%>
+
+</table>

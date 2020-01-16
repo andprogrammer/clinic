@@ -26,18 +26,18 @@
 				<% if(session.getAttribute("logged")!=null)
 	  if(session.getAttribute("logged").equals("online")) {
 	 	if(session.getAttribute("account_type").equals("user")) { %>
-				<li id="tab_02"><a href="index.jsp?subpage=2">Wizyty</a></li>
+				<li id="tab_01"><a href="index.jsp?subpage=2">Wizyty</a></li>
 				<li id="tab_02"><a href="index.jsp?subpage=8">Oplaty</a></li>
-				<li id="tab_02"><a href="index.jsp?subpage=7">Lekarze</a></li>
-				<li id="tab_03"><a href="index.jsp?subpage=9">Kokpit</a></li>
+				<li id="tab_03"><a href="index.jsp?subpage=7">Lekarze</a></li>
+				<li id="tab_04"><a href="index.jsp?subpage=9">Kokpit</a></li>
 				<% 	} else if(session.getAttribute("account_type").equals("admin")) { %>
 				<li id="tab_01"><a href="index.jsp?subpage=10">Uzytkownicy</a></li>
 				<li id="tab_02"><a href="index.jsp?subpage=11">Edycja wizyt</a></li>
 				<li id="tab_03"><a href="index.jsp?subpage=9">Kokpit</a></li>
 				<%	}
 	} %>
-				<li id="tab_01"><a href="index.jsp?subpage=1">Start</a></li>
-				<li id="tab_03"><a href="index.jsp?subpage=3">Placówki</a></li>
+				<li id="tab_05"><a href="index.jsp?subpage=1">Start</a></li>
+				<li id="tab_01"><a href="index.jsp?subpage=3">Placówki</a></li>
 			</ul>
 
 		</div>
