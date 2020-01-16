@@ -15,7 +15,21 @@
 if(!DatabaseService.isDatabaseConnected())
 	DatabaseService.connectToDataBase();
 if(DatabaseService.isDatabaseConnected()) {
-    String query = "SELECT service.name, service.doctor, service.date, service.price FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id");
+	
+	String action_delete=request.getParameter("action_delete");
+	if(action_delete!=null && action_delete.compareTo("delete")==0) {
+		String appointment_id=request.getParameter("appointment_id");
+		
+		try {
+			String query = "DELETE FROM appointment WHERE id="+appointment_id;
+			
+			DatabaseService.statementDataBase().executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+    String query = "SELECT appointment.id, service.name, service.doctor, service.date, service.price FROM service INNER JOIN appointment ON service.id=appointment.service_id WHERE appointment.user_id=" + session.getAttribute("user_id");
 
 %>
 <table style="width: 100%">
@@ -27,6 +41,7 @@ if(DatabaseService.isDatabaseConnected()) {
 		<th>Lekarz</th>
 		<th>Data</th>
 		<th>Cena</th>
+		<th>Usun</th>
 	</tr>
 
 <%
@@ -39,6 +54,7 @@ if(DatabaseService.isDatabaseConnected()) {
 		<td><center><%=rs.getString("doctor") %></center></td>
 		<td><center><%=rs.getString("date") %></center></td>
 		<td><center><%=rs.getString("price") %></center></td>
+		<td><center><a href="index.jsp?subpage=2&action_delete=delete&appointment_id=<%=rs.getString("id") %>">Usun</a></center></td>
 	</tr>
 <%
         }
